@@ -12,7 +12,6 @@ import pl.psnc.dl.ege.utils.EGEIOUtils;
 import pl.psnc.dl.ege.utils.IOResolver;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -95,10 +94,6 @@ public class LilyPondConverter implements Converter {
 
                 outTempDir = prepareTempDir();
 
-                LOGGER.warn("inTmpDir: " + inTmpDir);
-                LOGGER.warn("inputFile: " + inputFile);
-                LOGGER.warn("outTempDir: " + outTempDir);
-
                 ProcessBuilder builder = new ProcessBuilder();
                 builder.command("sh", "-c", "lilypond --output=" + outTempDir +  " --format=" + format + " " + newFileName);
                 builder.directory(inTmpDir);
@@ -117,13 +112,10 @@ public class LilyPondConverter implements Converter {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            /*
             if (outTempDir != null && outTempDir.exists())
                 EGEIOUtils.deleteDirectory(outTempDir);
             if (inTmpDir != null && inTmpDir.exists())
                 EGEIOUtils.deleteDirectory(inTmpDir);
-
-             */
         }
     }
 
