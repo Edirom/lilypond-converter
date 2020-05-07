@@ -38,9 +38,9 @@ public class ConverterConfiguration {
         sbParams.append("</properties>");
 
         ConversionActionArguments caa = new ConversionActionArguments(
-                new DataType(format.getIFormatId(), format.getMimeType(), format.getInputDescription(),
+                new DataType(format.getIFormatId(), format.getIMimeType(), format.getInputDescription(),
                         getType(format.getInputType())),
-                new DataType(format.getOFormatId(), format.getMimeType(),
+                new DataType(format.getOFormatId(), format.getOMimeType(),
                         format.getOutputDescription(), getType(format.getOutputType())),
                 sbParams.toString(), format.getVisible(), format.getCost());
 
