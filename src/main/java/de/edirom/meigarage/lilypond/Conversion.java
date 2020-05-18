@@ -12,8 +12,8 @@ public enum Conversion {
             "LilyPond file (max version " + LilyPondConverter.LILYPOND_VERSION + ")", // "input description"
             "score", // "input type" (score, audio, image, customization)
             "application/pdf", // "output mime type"
-            "pdf", // "output format id"
-            "PDF Score", // "output description"
+            "pdf-lilypond", // "output format id"
+            "PDF Score (LilyPond)", // "output description"
             "score", // "output type" (score, audio, image, customization)
             true, // "visible as input"
             9 // "cost"
