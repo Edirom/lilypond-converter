@@ -32,5 +32,5 @@ jobs:
     - name: Upload Maven build artifact
       uses: actions/upload-artifact@v2
       with:
-        name: lilypond-converter-0.4.jar
-        path: /home/runner/work/lilypond-converter/lilypond-converter/target/lilypond-converter-0.4.jar
+        name: lilypond-converter-0.1.jar
+        path: /home/runner/work/lilypond-converter/lilypond-converter/target/lilypond-converter-0.1.jar
