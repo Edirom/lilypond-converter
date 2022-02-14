@@ -6,7 +6,7 @@
 
     <groupId>de.edirom.meigarage</groupId>
     <artifactId>lilypond-converter</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
 
     <name>LilyPond Converter</name>
     <properties>
@@ -18,8 +18,8 @@
         <project.reporting.outputEncoding>
             UTF-8
         </project.reporting.outputEncoding>
-  	<maven.compiler.source>1.8</maven.compiler.source>
- 	<maven.compiler.target>1.8</maven.compiler.target>
+  	<maven.compiler.source>11</maven.compiler.source>
+ 	<maven.compiler.target>11</maven.compiler.target>
     </properties>
     <licenses>
         <license>
@@ -42,13 +42,13 @@
         <dependency>
             <groupId>pl.psnc.dl.ege</groupId>
             <artifactId>ege-api</artifactId>
-            <version>0.3.0</version>
+            <version>0.4.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>pl.psnc.dl.ege</groupId>
             <artifactId>ege-framework</artifactId>
-            <version>0.4</version>
+            <version>0.5</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
