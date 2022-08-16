@@ -26,8 +26,12 @@ public class LilyPondConverter implements Converter {
 
     protected static final String LILYPOND_VERSION = "2.20.0";
 
+    public void convert(InputStream inputStream, OutputStream outputStream, ConversionActionArguments conversionDataTypes) throws ConverterException, IOException{
+        convert(inputStream,outputStream,conversionDataTypes, null);
+    }
+
     public void convert(InputStream inputStream, OutputStream outputStream,
-                        ConversionActionArguments conversionDataTypes)
+                        ConversionActionArguments conversionDataTypes, String tempDir)
             throws ConverterException, IOException {
 
         boolean found = false;
@@ -43,7 +47,7 @@ public class LilyPondConverter implements Converter {
                         + conversionDataTypes.getOutputType().toString()
                         + " WITH profile " + profile );
                 convertDocument(inputStream, outputStream, cadt.getInputType(), cadt.getOutputType(),
-                        cadt.getProperties());
+                        cadt.getProperties(), tempDir);
                 found = true;
             }
         }
@@ -58,7 +62,7 @@ public class LilyPondConverter implements Converter {
      * Prepares transformation : based on MIME type.
      */
     private void convertDocument(InputStream inputStream, OutputStream outputStream,
-                                 DataType fromDataType, DataType toDataType, Map<String, String> properties) throws IOException,
+                                 DataType fromDataType, DataType toDataType, Map<String, String> properties, String tempDir) throws IOException,
             ConverterException {
 
         // LilyPond to PDF
@@ -66,7 +70,7 @@ public class LilyPondConverter implements Converter {
                 toDataType.getFormat().equals(Conversion.LILYPONDTOPDF.getOFormatId())) {
 
             properties.put("extension", "pdf");
-            performLilyPondTransformation(inputStream, outputStream, "pdf", properties);
+            performLilyPondTransformation(inputStream, outputStream, "pdf", properties, tempDir);
 
         }
         // LilyPond to PNG
@@ -74,12 +78,12 @@ public class LilyPondConverter implements Converter {
                 toDataType.getFormat().equals(Conversion.LILYPONDTOPNG.getOFormatId())) {
 
             properties.put("extension", "png");
-            performLilyPondTransformation(inputStream, outputStream, "png", properties);
+            performLilyPondTransformation(inputStream, outputStream, "png", properties, tempDir);
         }
     }
 
     private void performLilyPondTransformation(InputStream inputStream, OutputStream outputStream, String format,
-                                               Map<String, String> properties) throws IOException, ConverterException {
+                                               Map<String, String> properties, String tempDir) throws IOException, ConverterException {
 
         File inTmpDir = null;
         File outTempDir = null;
@@ -92,9 +96,10 @@ public class LilyPondConverter implements Converter {
                 String newFileName = inputFile.getAbsolutePath().substring(0, inputFile.getAbsolutePath().lastIndexOf(".")) + ".ly";
                 inputFile.renameTo(new File(newFileName));
 
-                outTempDir = prepareTempDir();
+                outTempDir = prepareTempDir(tempDir);
 
                 ProcessBuilder builder = new ProcessBuilder();
+                System.out.println("sh" + " -c" + " lilypond --output=" + outTempDir +  " --format=" + format + " " + newFileName);
                 builder.command("sh", "-c", "lilypond --output=" + outTempDir +  " --format=" + format + " " + newFileName);
                 builder.directory(inTmpDir);
                 Process process = builder.start();
@@ -120,10 +125,19 @@ public class LilyPondConverter implements Converter {
     }
 
     private File prepareTempDir() {
+        return prepareTempDir(null);
+    }
+
+    private File prepareTempDir(String tempDir) {
         File inTempDir = null;
         String uid = UUID.randomUUID().toString();
-        inTempDir = new File(EGEConstants.TEMP_PATH + File.separator + uid
-                + File.separator);
+        if(tempDir!=null){
+            inTempDir = new File(tempDir + File.separator + uid
+                    + File.separator);
+        } else {
+            inTempDir = new File(EGEConstants.TEMP_PATH + File.separator + uid
+                    + File.separator);
+        }
         inTempDir.mkdir();
         return inTempDir;
     }
