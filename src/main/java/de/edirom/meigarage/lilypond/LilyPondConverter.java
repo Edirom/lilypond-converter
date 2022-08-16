@@ -1,7 +1,8 @@
 package de.edirom.meigarage.lilypond;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import pl.psnc.dl.ege.component.Converter;
 import pl.psnc.dl.ege.configuration.EGEConfigurationManager;
 import pl.psnc.dl.ege.configuration.EGEConstants;
@@ -20,7 +21,7 @@ import java.util.regex.Pattern;
 
 public class LilyPondConverter implements Converter {
 
-    private static final Logger LOGGER = Logger.getLogger(LilyPondConverter.class);
+    private static final Logger LOGGER = LogManager.getLogger(LilyPondConverter.class);
     private IOResolver ior = EGEConfigurationManager.getInstance()
             .getStandardIOResolver();
 
