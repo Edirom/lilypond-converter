@@ -39,6 +39,13 @@
         </developer>
     </developers>
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>pl.psnc.dl.ege</groupId>
             <artifactId>ege-framework</artifactId>
@@ -65,7 +72,7 @@
 	</repositories>  
 <distributionManagement>
    <repository>
-     <id>github</id>
+     <id>githubedirom</id>
      <name>GitHub Edirom Apache Maven Packages</name>
      <url>https://maven.pkg.github.com/edirom/lilypond-converter</url>
    </repository>
