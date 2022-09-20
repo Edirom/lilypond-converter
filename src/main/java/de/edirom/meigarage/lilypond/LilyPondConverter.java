@@ -89,7 +89,7 @@ public class LilyPondConverter implements Converter {
         File inTmpDir = null;
         File outTempDir = null;
         try {
-            inTmpDir = prepareTempDir();
+            inTmpDir = prepareTempDir(tempDir);
             ior.decompressStream(inputStream, inTmpDir);
             // avoid processing files ending in .bin
             File inputFile = searchForData(inTmpDir, "^.*(?<!bin)$");
@@ -100,10 +100,17 @@ public class LilyPondConverter implements Converter {
                 outTempDir = prepareTempDir(tempDir);
 
                 ProcessBuilder builder = new ProcessBuilder();
-                System.out.println("sh" + " -c" + " lilypond --output=" + outTempDir +  " --format=" + format + " " + newFileName);
-                builder.command("sh", "-c", "lilypond --output=" + outTempDir +  " --format=" + format + " " + newFileName);
+                String command = "lilypond --output=" + outTempDir.getAbsolutePath() +  " --formats=" + format + " " + newFileName;
+                LOGGER.debug(command);
+                builder.command("sh", "-c", command);
+
                 builder.directory(inTmpDir);
+                builder.redirectErrorStream(true);
                 Process process = builder.start();
+                BufferedReader inStreamReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                while (inStreamReader.readLine() != null) {
+                    LOGGER.debug(inStreamReader.readLine());
+                }
 
                 LilyPondRunner runner = new LilyPondRunner(process.getInputStream());
                 Executors.newSingleThreadExecutor().submit(runner);

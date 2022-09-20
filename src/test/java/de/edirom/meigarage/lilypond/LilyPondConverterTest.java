@@ -37,7 +37,7 @@ public class LilyPondConverterTest {
         InputStream isout = new FileInputStream("src/test/resources/test-output.png.zip");
         EGEConfigurationManager.getInstance().getStandardIOResolver().decompressStream(isout, new File("src/test/resources/test-output.png"));
         //System.out.println(new String(Files. readAllBytes(Paths.get("src/test/resources/test-output.txt/result.txt")), "UTF-8"));
-        assertNotEquals("", new String(Files.readAllBytes(Paths.get("src/test/resources/test-output.png")), "UTF-8"));
+        assertNotEquals("", new String(Files.readAllBytes(Paths.get("src/test/resources/test-output.png/test.png")), "UTF-8"));
         is.close();
         os.close();
         isout.close();
