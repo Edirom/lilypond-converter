@@ -9,3 +9,4 @@ mkdir -p ~/lilypond/usr
 mkdir -p /tmp/lilypond
 tar -xf /tmp/lilypond.tar.gz -C /tmp/lilypond
 mv /tmp/lilypond/*/* ~/lilypond/usr
+lilypond --version
