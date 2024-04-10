@@ -45,7 +45,7 @@ public class LilyPondConverterTest {
         //System.out.println(new String(Files. readAllBytes(Paths.get("src/test/resources/test-output.txt/result.txt")), "UTF-8"));
         //assertNotEquals("", new String(Files.readAllBytes(Paths.get("src/test/resources/test-output.png/test.png")), "UTF-8"));
         assertArrayEquals("Binary files differ",
-                Files.readAllBytes(Paths.get("src/test/resources/test.png")),
+                Files.readAllBytes(Paths.get("src/test/resources/expected-output.png")),
                 Files.readAllBytes(Paths.get("src/test/resources/test-output.png/test.png")));
         is.close();
         os.close();
